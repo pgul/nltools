@@ -10,7 +10,7 @@
 #   include <unistd.h>
 #else
 #   include <io.h>
-#   if (defined(_MSC_VER) && (_MSC_VER >= 1200))
+#   if (defined(_MSC_VER) && (_MSC_VER >= 1200) || (__EMX__))
 #       define F_OK 00
 #       define R_OK 04
 #   endif
@@ -386,7 +386,7 @@ static int try_full_update(s_fidoconfig *config, char *rawnl,char *fullbase,
 
                 w_log( LL_FILE, "Copy '%s' to '%s'", ufn, newfn );
 
-                if (copy_file(ufn, newfn, 1))
+                if (copy_file(ufn, newfn))
                 {
                     w_log(LL_ERROR, "Error copying '%s' to '%s'", ufn, newfn);
                     return 1;
